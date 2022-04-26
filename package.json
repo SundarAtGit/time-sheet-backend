@@ -1,0 +1,20 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "push": "git add . && git commit -m 'update' && git push origin master"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SundarAtGit/time-sheet-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SundarAtGit/time-sheet-backend/issues"
+  },
+  "homepage": "https://github.com/SundarAtGit/time-sheet-backend#readme"
+}
