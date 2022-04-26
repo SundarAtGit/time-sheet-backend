@@ -261,6 +261,7 @@ switch($method){
                     {
                         $username = $record -> getField('screenshot__USR::User_name');
                         $date = $record -> getField('Date');
+                    }
 
             break;
     }
