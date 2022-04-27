@@ -181,89 +181,105 @@ switch($method){
                 }
             break;
 
-            case 'screen':
-                $data = array();
-                $taskid = $_GET["taskid"];
-                $findCommand = $fm->newFindCommand('PHP__SCREENSHOT');
-                $findCommand->addFindCriterion('_kf__TskId__lsxn','=='.$taskid);
-                $result = $findCommand->execute();
-                $records = $result->getRecords();
+            // case 'screen':
+            //     $data = array();
+            //     $taskid = $_GET["taskid"];
+            //     $findCommand = $fm->newFindCommand('PHP__SCREENSHOT');
+            //     $findCommand->addFindCriterion('_kf__TskId__lsxn','=='.$taskid);
+            //     $result = $findCommand->execute();
+            //     $records = $result->getRecords();
                 // print_r($records);
                 // $count = count($records);
                 // header('Content-type: image/jpg');
 
                 // echo "<pre>";
-                foreach($records as $record)
-                    {
-                        // print_r($record);
-                        // echo "===================================================================";
-                    $srnstid = $record -> getField('__kp__IdleScreenShotId__lsan');  
-                    $projid = $record -> getField('_kf__ProjId__lsxn');  
-                    $userid = $record -> getField('_kf_UserId__lsxn');
-                    $rqstid = $record -> getField('__kp__RqstId__lsan');
-                    $title = $record -> getField('TitreAffaire');
-                    $username = $record -> getField('screenshot__USR::User_name');  
-                    $srnsttime = $record -> getField('Screenshot_time');  
-                    $time = $record -> getField('Date_time');
-                    $two = $record -> getField('Istwoscreen');
-                    $date = $record -> getField('Date');
-                    // $srn1 = $record->getField('Screen1');
-                    $srn1 = urlencode($record -> getField('Screen1'));
-                    file_put_contents('images/img.jpg', $fm->getContainerData($srn1));
-                    $srn2 = urlencode($record -> getField('Screen1'));
-                    // echo $srn2;
-                    file_put_contents('images/img.jpg', $fm->getContainerData($srn2));
-                    // $record->getField('Screen1');
-                    // echo '<img src="' . $fm->getContainerDataURL($record->getField('Screen1')) .'">';
-                    // $srn2 = $record->getField('Screen2');
-                    // $record->getField('Screen2');
-                    // '<img src="' . $fm->getContainerDataURL($record->getField('Screen2')) .'">';
-                    // $srn1 = $fm->getContainerDataURL($record->getField('Screen1'));
-                    // echo '<img src="config.php?path=' . urlencode($srn1) . '">';
-                    // $srn2 = $fm->getContainerDataURL($record->getField('Screen2'));
-                    // $srn1 = '<img src="config.php?path=' . urlencode($record->getField('Screen1')) . '">';  
-                    // echo $srn1;
-                    // $srn2 = '<img src="config.php?path=' . urlencode($record->getField('Screen2')) . '">';  
-                    $drive = $record -> getField('IsDriveMove');
-                    $img = $record -> getField('IsImage');
-                    $del = $record -> getField('IsDelete');
-                    $temp = [
-                        'srnstId' => "$srnstid",
-                        'projId' => "$projid",
-                        'userId' => "$userid",
-                        'rqstId' => "$rqstid",
-                        'title' => "$title",
-                        'userName' => "$username",
-                        'srnstTime' => "$srnsttime",
-                        'time' => "$time",
-                        'two' => "$two",
-                        'date' => "$date",
-                        'srn1' => "$srn1",
-                        'srn2' => "$srn2",
-                        'drive' => "$drive",
-                        'img' => "$img",
-                        'del' => "$del"
-                        ];
-                        array_push($data,$temp);
-                    }
+                // foreach($records as $record)
+                //     {
+                //         // print_r($record);
+                //         // echo "===================================================================";
+                //     $srnstid = $record -> getField('__kp__IdleScreenShotId__lsan');  
+                //     $projid = $record -> getField('_kf__ProjId__lsxn');  
+                //     $userid = $record -> getField('_kf_UserId__lsxn');
+                //     $rqstid = $record -> getField('__kp__RqstId__lsan');
+                //     $title = $record -> getField('TitreAffaire');
+                //     $username = $record -> getField('screenshot__USR::User_name');  
+                //     $srnsttime = $record -> getField('Screenshot_time');  
+                //     $time = $record -> getField('Date_time');
+                //     $two = $record -> getField('Istwoscreen');
+                //     $date = $record -> getField('Date');
+                //     // $srn1 = $record->getField('Screen1');
+                //     $srn1 = urlencode($record -> getField('Screen1'));
+                //     file_put_contents('images/img.jpg', $fm->getContainerData($srn1));
+                //     $srn2 = urlencode($record -> getField('Screen1'));
+                //     // echo $srn2;
+                //     file_put_contents('images/img.jpg', $fm->getContainerData($srn2));
+                //     // $record->getField('Screen1');
+                //     // echo '<img src="' . $fm->getContainerDataURL($record->getField('Screen1')) .'">';
+                //     // $srn2 = $record->getField('Screen2');
+                //     // $record->getField('Screen2');
+                //     // '<img src="' . $fm->getContainerDataURL($record->getField('Screen2')) .'">';
+                //     // $srn1 = $fm->getContainerDataURL($record->getField('Screen1'));
+                //     // echo '<img src="config.php?path=' . urlencode($srn1) . '">';
+                //     // $srn2 = $fm->getContainerDataURL($record->getField('Screen2'));
+                //     // $srn1 = '<img src="config.php?path=' . urlencode($record->getField('Screen1')) . '">';  
+                //     // echo $srn1;
+                //     // $srn2 = '<img src="config.php?path=' . urlencode($record->getField('Screen2')) . '">';  
+                //     $drive = $record -> getField('IsDriveMove');
+                //     $img = $record -> getField('IsImage');
+                //     $del = $record -> getField('IsDelete');
+                //     $temp = [
+                //         'srnstId' => "$srnstid",
+                //         'projId' => "$projid",
+                //         'userId' => "$userid",
+                //         'rqstId' => "$rqstid",
+                //         'title' => "$title",
+                //         'userName' => "$username",
+                //         'srnstTime' => "$srnsttime",
+                //         'time' => "$time",
+                //         'two' => "$two",
+                //         'date' => "$date",
+                //         'srn1' => "$srn1",
+                //         'srn2' => "$srn2",
+                //         'drive' => "$drive",
+                //         'img' => "$img",
+                //         'del' => "$del"
+                //         ];
+                //         array_push($data,$temp);
+                // }
+                // echo json_encode($data);
+                // break;
+        
+                case 'details':
+                    $data = array();
+                    $taskid = $_GET["taskid"];
+                    $findCommand = $fm->newFindCommand('PHP__SCREENSHOT');
+                    $findCommand->addFindCriterion('_kf__TskId__lsxn','=='.$taskid);
+                    $result = $findCommand->execute();
+                    $records = $result->getRecords();
+                    foreach($records as $record){
+                        $name = $record -> getField('screenshot__USR::Nom_Prenom_Societe');
+                        print_r($name);
+                        $findCommand->addFindCriterion('screenshot__USR::Nom_Prenom_Societe','=='.$name);
+                        $result = $findCommand->execute();
+                        $record = $result->getRecords();
+                        foreach($records as $rec){
+                            $date = $rec -> getField('Date');
+                            $duration = $rec -> getField('Screenshot_time'); 
+                            $title = $rec -> getField('screenshot__tsk__PROJ::TitreAffaire');
+                            $temp = [
+                                'name' => $name,
+                                'task:' => [[
+                                    'date' => $date,
+                                    'duration' => $duration,
+                                    'description' => $title
+                                ]]
+                            ];
+                            array_push($data,$temp);
+                        }
                     echo json_encode($data);
-            }
-            break;
-
-            case 'tasks':
-                $data = array();
-                $taskid = $_GET["taskid"];
-                $findCommand = $fm->newFindCommand('PHP__SCREENSHOT');
-                $findCommand->addFindCriterion('_kf__TskId__lsxn','=='.$taskid);
-                $result = $findCommand->execute();
-                $records = $result->getRecords();
-                foreach($records as $record)
-                    {
-                        $username = $record -> getField('screenshot__USR::User_name');
-                        $date = $record -> getField('Date');
                     }
-
-            break;
+                break;
+        }
     }
     
     ?>
