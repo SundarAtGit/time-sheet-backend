@@ -108,35 +108,76 @@ switch($method){
                 // $count = count($records);
                 foreach($records as $record)
                     {
-                        $rqstid = $record -> getField('__kp__RqstId__lsan');
-                        $rqstprj = $record -> getField('IsActive');
+                        $rqstId = $record -> getField('__kp__RqstId__lsan');
+                        $rqstPrj = $record -> getField('IsActive');
                         $recieved = $record -> getField('Date_recieved');
                         $target = $record -> getField('Date_target');
                         $name = $record -> getField('Name');
                         $des = $record -> getField('Description');
-                        $status = $record -> getField('IsActive');
+                        $statusId = $record -> getField('IsActive');
                         $assign = $record -> getField('_kf__UserId__recievedby__lsxn');
                         $statusid = $record -> getField('_kf_Tsk_StatusId__lsxn');
                         $duration = $record -> getField('Worked_Duration');
 
-                        $temp =
-                        [
-                            'id' => "$rqstid",
-                            'task' => $name,
-                            'status' => [
-                                'msg' => $status,
-                                'color' => 'success'
-                            ],
-                            'dueStart' => $recieved,
-                            'dueEnd' => $target,
-                            'duration' => $duration,
-                            'assign' => $assign,
-                            'rqstProj' => $rqstprj,
-                            'statusId' => $statusid
-                        ];
-                        array_push($data,$temp);
+                    switch ($statusId) {
+                        case '1':
+                            $status = 'Open';
+                            $color = 'danger';
+                        break;
+                        case '2':
+                            $status = 'In progress';
+                            $color = 'success';
+                        break;
+                        case '3':
+                            $status = 'To be validate';
+                            $color = 'info';
+                        break;
+                        case '4':
+                            $status = 'Validated';
+                            $color = 'danger';
+                        break;
+                        case '5':
+                            $status = 'Client Review';
+                            $color = 'danger';
+                        break;
+                        case '6':
+                            $status = 'Closed';
+                            $color = 'success';
+                        break;
                     }
-                    echo json_encode($data);
+                    switch($assign){
+                        case '230':
+                            $assignee = 'SP';
+                        break;
+                        case '246':
+                            $assignee = 'LS';
+                        break;
+                        case '264':
+                            $assignee = 'CM';
+                        break;
+                        case '270':
+                            $assignee = 'KK';
+                        break;
+                    }
+
+                    $temp = [
+                        'id' => $rqstId,
+                        'task' => $name,
+                        'status' => [
+                            'msg' => $status,
+                            'color' => $color,
+                        ],
+                        'dateRecieved' => $recieved,
+                        'dueEnd' => $target,
+                        'dueDate' => $target,
+                        'duration' => $duration,
+                        'assign' => $assign,
+                        'rqstProj' => $rqstPrj,
+                        'statusid' => $statusId,
+                    ];
+                    array_push($data, $temp);
+                    }
+                echo json_encode($data);
                     // echo sizeof($data);
             break;
             
@@ -160,7 +201,35 @@ switch($method){
                             $assign = $relatedRow -> getField('Assigned to');
                             $ex_duration = $relatedRow->getField('rqst__TSK::Duration_expected');
                             $worked_duration = $relatedRow->getField('rqst__TSK::Duration_worked');
-                            $statusid = $relatedRow->getField('rqst__TSK::_kf_Tsk_StatusId__lsxn');
+                            $statusId = $relatedRow->getField('rqst__TSK::_kf_Tsk_StatusId__lsxn');
+                            
+                            switch ($statusId) {
+                                case '1':
+                                    $status = 'Open';
+                                    $color = 'danger';
+                                break;
+                                case '2':
+                                    $status = 'In progress';
+                                    $color = 'success';
+                                break;
+                                case '3':
+                                    $status = 'To be validate';
+                                    $color = 'info';
+                                break;
+                                case '4':
+                                    $status = 'Validated';
+                                    $color = 'danger';
+                                break;
+                                case '5':
+                                    $status = 'Client Review';
+                                    $color = 'danger';
+                                break;
+                                case '6':
+                                    $status = 'Closed';
+                                    $color = 'success';
+                                break;
+                            }
+
                             $temp = [
                                 'id' => "$taskid",
                                 'dueDate' => "$ex_duration",
@@ -168,12 +237,12 @@ switch($method){
                                 'dueEnd' => "$datedue",
                                 'status' => [
                                     'msg' => $status,
-                                    'color' => 'success'
+                                    'color' => $color,
                                 ],
                                 'assign' => $assign,
                                 'task' => "$desc",
                                 'duration' => "$worked_duration",
-                                'statusId' => "$statusid"
+                                'statusId' => "$statusId"
                             ];
                             array_push($data,$temp);
                         }
@@ -258,7 +327,6 @@ switch($method){
                     $records = $result->getRecords();
                     foreach($records as $record){
                         $name = $record -> getField('screenshot__USR::Nom_Prenom_Societe');
-                        print_r($name);
                         $findCommand->addFindCriterion('screenshot__USR::Nom_Prenom_Societe','=='.$name);
                         $result = $findCommand->execute();
                         $record = $result->getRecords();
