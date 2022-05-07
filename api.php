@@ -118,6 +118,7 @@ switch($method){
                         $assign = $record -> getField('_kf__UserId__recievedby__lsxn');
                         $statusid = $record -> getField('_kf_Tsk_StatusId__lsxn');
                         $duration = $record -> getField('Worked_Duration');
+                        $assigns = array();
 
                     switch ($statusId) {
                         case '1':
@@ -145,20 +146,27 @@ switch($method){
                             $color = 'success';
                         break;
                     }
-                    switch($assign){
-                        case '230':
-                            $assignee = 'SP';
-                        break;
-                        case '246':
-                            $assignee = 'LS';
-                        break;
-                        case '264':
-                            $assignee = 'CM';
-                        break;
-                        case '270':
-                            $assignee = 'KK';
-                        break;
+
+                    $assignees = explode("\n", $assign);
+
+                    foreach($assignees as $assignee){
+                        switch($assignee){
+                            case '230':
+                                $assign = 'SP';
+                            break;
+                            case '246':
+                                $assign = 'LS';
+                            break;
+                            case '264':
+                                $assign = 'CM';
+                            break;
+                            case '270':
+                                $assign = 'KK';
+                            break;
+                        }
+                        array_push($assigns, $assign);
                     }
+
 
                     $temp = [
                         'id' => $rqstId,
@@ -171,7 +179,7 @@ switch($method){
                         'dueEnd' => $target,
                         'dueDate' => $target,
                         'duration' => $duration,
-                        'assign' => $assign,
+                        'assign' => $assigns,
                         'rqstProj' => $rqstPrj,
                         'statusid' => $statusId,
                     ];
