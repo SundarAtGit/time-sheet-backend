@@ -152,16 +152,64 @@ switch($method){
                     foreach($assignees as $assignee){
                         switch($assignee){
                             case '230':
-                                $assign = 'SP';
+                                $assign = 'AB';
                             break;
                             case '246':
-                                $assign = 'LS';
+                                $assign = 'ADM';
                             break;
                             case '264':
-                                $assign = 'CM';
+                                $assign = 'BB';
                             break;
                             case '270':
+                                $assign = 'CM';
+                            break;
+                            case '':
+                                $assign = 'DB';
+                            break;
+                            case '':
+                                $assign = 'DS';
+                            break;
+                            case '':
+                                $assign = 'FB';
+                            break;
+                            case '':
+                                $assign = 'HM';
+                            break;
+                            case '':
+                                $assign = 'JJ';
+                            break;
+                            case '':
+                                $assign = 'JR';
+                            break;
+                            case '':
                                 $assign = 'KK';
+                            break;
+                            case '':
+                                $assign = 'KR';
+                            break;
+                            case '':
+                                $assign = 'KS';
+                            break;
+                            case '':
+                                $assign = 'LP';
+                            break;
+                            case '':
+                                $assign = 'LS';
+                            break;
+                            case '':
+                                $assign = 'MN';
+                            break;
+                            case '':
+                                $assign = 'MS';
+                            break;
+                            case '':
+                                $assign = 'SA';
+                            break;
+                            case '':
+                                $assign = 'SP';
+                            break;
+                            case '':
+                                $assign = 'VA';
                             break;
                         }
                         array_push($assigns, $assign);
